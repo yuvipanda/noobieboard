@@ -1,6 +1,2 @@
 #!/bin/bash
-
-echo "Pushing..."
-git push origin master
-echo "Pulling..."
-ssh willow.toolserver.org 'cd ~/public_html/noobieboard && git pull origin master'
+rsync -vr --exclude '.git' --exclude 'vendor' --exclude 'LocalSettings.php' . yuvipanda@wolfsbane.toolserver.org:~/public_html/noobieboard
