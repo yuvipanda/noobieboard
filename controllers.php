@@ -15,5 +15,9 @@ function generateStats( $project, $lang ) {
         FROM user JOIN user_groups ON user_id = ug_user;
 SQL;
     echo "Blah";
-    var_dump( $db->exec( $query ) );
+
+    $statement = $db->query( $query );
+    while( $row = $statement->fetch() ) {
+        var_dump( $row );
+    }
 }
