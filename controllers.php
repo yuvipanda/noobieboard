@@ -25,14 +25,14 @@ function activeEditors( $project, $lang ) {
                 JOIN page ON page_id = rev_page 
                 WHERE rev_user = user_id 
                     AND page_namespace = 0 
-                    AND rev_timestamp > ?
+                    AND rev_timestamp > :afterTime
             ) AS mainspace_edits 
         FROM user JOIN user_groups ON user_id = ug_user
         ORDER BY mainspace_edits DESC;
 SQL;
 
     $statement = $db->query( $query );
-    $statement->bindParam( 1, $fromDate . '000000' );
+    $statement->bindParam( ':afterTime', $fromDate . '000000' );
     $statement->setFetchMode( PDO::FETCH_NUM );
     while( $row = $statement->fetch() ) {
         foreach( $row as $val ) {
