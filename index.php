@@ -2,4 +2,10 @@
 
 require_once "vendor/autoload.php";
 
-echo "Hello World!";
+$app = new Slim(array(
+));
+
+require_once "urls.php";
+require_once "controllers.php";
+
+$app->run();
