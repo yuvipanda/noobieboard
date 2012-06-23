@@ -35,11 +35,13 @@ SQL;
 
     $statement = $db->prepare( $query );
 
+    echo $fromTimestamp;
+
     $statement->bindParam( ':afterTime', $fromTimestamp );
     $statement->setFetchMode( PDO::FETCH_NUM );
     while( $row = $statement->fetch() ) {
         foreach( $row as $val ) {
-            echo "$row, ";
+            echo "$val, ";
         }
         echo "\n";
     }
