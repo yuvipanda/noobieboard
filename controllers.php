@@ -12,7 +12,8 @@ function generateStats( $project, $lang ) {
                     AND page_namespace = 0 
                     AND rev_timestamp > 20120401000000
             ) AS mainspace_edits 
-        FROM user JOIN user_groups ON user_id = ug_user;
+        FROM user JOIN user_groups ON user_id = ug_user
+        ORDER BY mainspace_edits DESC;
 SQL;
     echo "Blah";
 
