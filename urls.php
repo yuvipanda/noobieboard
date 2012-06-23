@@ -1,2 +1,2 @@
 <?php
-$app->get('/test', 'test');
+$app->get('/:project/:lang', 'generateStats');
