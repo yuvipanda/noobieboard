@@ -22,20 +22,19 @@ function activeEditors( $project, $lang ) {
     $query = <<<SQL
         SELECT /* SLOW_OK */ 
             DISTINCT user_name, 
-            user_editcount, 
             (SELECT count(*) FROM revision 
                 JOIN page ON page_id = rev_page 
                 WHERE rev_user = user_id 
                     AND page_namespace = 0 
                     AND rev_timestamp > :afterTime
-            ) AS mainspace_edits 
-        FROM user JOIN user_groups ON user_id = ug_user
+            ) AS mainspace_edits,
+            user_editcount
+        FROM user INNER JOIN user_groups ON user_id = ug_user 
+        WHERE ug_group != 'bot'
         ORDER BY mainspace_edits DESC;
 SQL;
 
     $statement = $db->prepare( $query );
-
-    echo $fromTimestamp;
 
     $statement->bindParam( ':afterTime', $fromTimestamp, PDO::PARAM_INT );
     $statement->setFetchMode( PDO::FETCH_NUM );
