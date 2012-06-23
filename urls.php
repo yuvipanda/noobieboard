@@ -1,2 +1,2 @@
 <?php
-$app->get('/:project/:lang', 'generateStats');
+$app->get('/active/:project/:lang', 'activeEditors');
