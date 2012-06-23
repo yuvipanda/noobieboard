@@ -16,6 +16,8 @@ function activeEditors( $project, $lang ) {
         $fromDate = date( 'Ymd', time() - (1 * 30 * 24 * 60 * 60) );
     }
 
+    $fromeTimestamp = $fromDate . '000000';
+
     $db = TSDatabase::getConnection( $lang, $project );
     $query = <<<SQL
         SELECT /* SLOW_OK */ 
@@ -32,7 +34,8 @@ function activeEditors( $project, $lang ) {
 SQL;
 
     $statement = $db->prepare( $query );
-    $statement->bindParam( ':afterTime', $fromDate . '000000' );
+
+    $statement->bindParam( ':afterTime', $fromTimestamp );
     $statement->setFetchMode( PDO::FETCH_NUM );
     while( $row = $statement->fetch() ) {
         foreach( $row as $val ) {
