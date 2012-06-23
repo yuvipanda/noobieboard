@@ -31,7 +31,7 @@ function activeEditors( $project, $lang ) {
         ORDER BY mainspace_edits DESC;
 SQL;
 
-    $statement = $db->query( $query );
+    $statement = $db->( $query );
     $statement->bindParam( ':afterTime', $fromDate . '000000' );
     $statement->setFetchMode( PDO::FETCH_NUM );
     while( $row = $statement->fetch() ) {
