@@ -16,7 +16,7 @@ function activeEditors( $project, $lang ) {
         $fromDate = date( 'Ymd', time() - (1 * 30 * 24 * 60 * 60) );
     }
 
-    $fromeTimestamp = $fromDate . '000000';
+    $fromTimestamp = $fromDate . '000000';
 
     $db = TSDatabase::getConnection( $lang, $project );
     $query = <<<SQL
