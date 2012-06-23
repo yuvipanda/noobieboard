@@ -1,0 +1,4 @@
+<?php
+
+$dbUser = "yuvipanda";
+$dbPassword = "No, this isn't actually my password";

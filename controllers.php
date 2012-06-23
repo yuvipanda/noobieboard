@@ -1,5 +1,5 @@
 <?php
 
 function test() {
-    echo 'test';
+    $db = TSDatabase::getConnection( 'en', 'wiki' );
 }
