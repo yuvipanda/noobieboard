@@ -37,7 +37,7 @@ SQL;
 
     echo $fromTimestamp;
 
-    $statement->bindParam( ':afterTime', $fromTimestamp );
+    $statement->bindParam( ':afterTime', $fromTimestamp, PDO::PARAM_INT );
     $statement->setFetchMode( PDO::FETCH_NUM );
     while( $row = $statement->fetch() ) {
         foreach( $row as $val ) {
