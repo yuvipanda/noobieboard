@@ -4,9 +4,9 @@ function activeEditors( $project, $lang ) {
     global $app;
 
     $headers = array(
-        'user_name',
-        'total_edits',
-        'mainspace_edits'
+        'User',
+        'MainSpace Edit Count (For Time Period)',
+        'All time all namespace edit count'
     );
 
     $fromDate = $app->request()->get('from');
@@ -17,6 +17,9 @@ function activeEditors( $project, $lang ) {
     }
 
     $fromTimestamp = $fromDate . '000000';
+
+    $toDate = date( 'Ymd', time() );
+    $filename = "activeEditors-$lang$project-$fromDate-$toDate.csv";
 
     $db = TSDatabase::getConnection( $lang, $project );
     $query = <<<SQL
@@ -40,6 +43,11 @@ SQL;
     $statement->setFetchMode( PDO::FETCH_NUM );
     $statement->execute();
 
+    $response = $app->response();
+    $response['Content-Type'] = "text/csv;charset=utf-8";
+    $response['Content-disposition'] = "attachment;filename='$filename'";
+
+    echo implode( ',', $headers ) . "\n";
     while( $row = $statement->fetch() ) {
         echo implode( ',', $row ) . "\n";
     }
